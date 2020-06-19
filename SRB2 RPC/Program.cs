@@ -148,7 +148,7 @@ namespace SRB2RPC
             }*/
             if (exe == 0)
             {
-                Console.WriteLine("\nWrong executable\nExecutable must be original 2.2.3\nThe program and the game will now exit");
+                Console.WriteLine("\nWrong executable\nExecutable must be original 2.2.3 or 2.2.4\nThe program and the game will now exit");
                 Thread.Sleep(10000);
                 process.Kill();
                 Environment.Exit(0);
@@ -187,7 +187,7 @@ namespace SRB2RPC
                     ReadProcessMemory((int)processHandle, 0x007E021C, buffer, buffer.Length, ref bytesRead);
                     ReadProcessMemory((int)processHandle, 0x0062EC34, buffer2, buffer2.Length, ref bytesRead);
                     ReadProcessMemory((int)processHandle, 0x007E020C, buffer4, buffer4.Length, ref bytesRead);
-                    ReadProcessMemory((int)processHandle, 0x007AD334, buffer5, buffer5.Length, ref bytesRead);
+                    ReadProcessMemory((int)processHandle, 0x05939C40, buffer5, buffer5.Length, ref bytesRead);
                     ReadProcessMemory((int)processHandle, 0x04853160, buffer6, buffer6.Length, ref bytesRead);
                     ReadProcessMemory((int)processHandle, 0x007D3C54, buffer7, buffer7.Length, ref bytesRead);
                     ReadProcessMemory((int)processHandle, 0x05940C44, buffer8, buffer8.Length, ref bytesRead);
