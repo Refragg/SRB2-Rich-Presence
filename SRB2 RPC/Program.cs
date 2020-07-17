@@ -49,7 +49,7 @@ namespace SRB2RPC
         private static RichPresence presence = new RichPresence();
         public static void Update(string level, string character, string image, string characterImage)
         {
-            if (level != "Menus" && IsPlaying == 1 && IsWatching == 0)
+            if (IsPlaying == 1 && IsWatching == 0)
             {
                 if (multi == 0)
                 {
@@ -138,7 +138,7 @@ namespace SRB2RPC
 
             Console.WriteLine("Getting executable type");
             //Determines whether the game is the 32 bit or the 64 bit version
-            if (process.MainModule.ModuleMemorySize == 99020800)
+            if (process.MainModule.ModuleMemorySize == 99889152)
             {
                 exe = 32;
             }
@@ -148,7 +148,7 @@ namespace SRB2RPC
             }*/
             if (exe == 0)
             {
-                Console.WriteLine("\nWrong executable\nExecutable must be original 2.2.3 or 2.2.4\nThe program and the game will now exit");
+                Console.WriteLine("\nWrong executable\nExecutable must be original 2.2.6\nThe program and the game will now exit");
                 Thread.Sleep(10000);
                 process.Kill();
                 Environment.Exit(0);
@@ -177,6 +177,9 @@ namespace SRB2RPC
             //Is watching a demo or not
             byte[] buffer8 = new byte[1];
 
+            //Marathon run timer (to detect whether or not you're playing in this mode)
+            //int[] buffer9 = new int[200];
+
             Console.WriteLine("\nInitializing Rich Presence");
 
             Setup();
@@ -184,13 +187,14 @@ namespace SRB2RPC
             {
                 if (exe == 32)
                 {
-                    ReadProcessMemory((int)processHandle, 0x007E021C, buffer, buffer.Length, ref bytesRead);
-                    ReadProcessMemory((int)processHandle, 0x0062EC34, buffer2, buffer2.Length, ref bytesRead);
-                    ReadProcessMemory((int)processHandle, 0x007E020C, buffer4, buffer4.Length, ref bytesRead);
-                    ReadProcessMemory((int)processHandle, 0x05939C40, buffer5, buffer5.Length, ref bytesRead);
+                    ReadProcessMemory((int)processHandle, 0x0064CCD4, buffer, buffer.Length, ref bytesRead);
+                    ReadProcessMemory((int)processHandle, 0x00636C34, buffer2, buffer2.Length, ref bytesRead);
+                    ReadProcessMemory((int)processHandle, 0x00831BCC, buffer4, buffer4.Length, ref bytesRead);
+                    ReadProcessMemory((int)processHandle, 0x059C5AE0, buffer5, buffer5.Length, ref bytesRead);
                     ReadProcessMemory((int)processHandle, 0x04853160, buffer6, buffer6.Length, ref bytesRead);
-                    ReadProcessMemory((int)processHandle, 0x007D3C54, buffer7, buffer7.Length, ref bytesRead);
-                    ReadProcessMemory((int)processHandle, 0x05940C44, buffer8, buffer8.Length, ref bytesRead);
+                    ReadProcessMemory((int)processHandle, 0x008245F4, buffer7, buffer7.Length, ref bytesRead);
+                    ReadProcessMemory((int)processHandle, 0x059CCEA4, buffer8, buffer8.Length, ref bytesRead);
+                    //ReadProcessMemory((int)processHandle, 0x00831BD8, buffer9, buffer9.Length, ref bytesRead);
                 }
                 /*if (exe == 64)
                 {
@@ -204,11 +208,6 @@ namespace SRB2RPC
                 }*/
                 switch (buffer[0])
                 {
-                    case 99:
-                        level = "Menus";
-                        image = "menu";
-                        break;
-
                     //Solo campaign Stages
 
                     case 1:
